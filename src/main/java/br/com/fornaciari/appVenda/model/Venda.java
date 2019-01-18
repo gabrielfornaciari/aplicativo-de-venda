@@ -6,17 +6,19 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "tb_venda")
+@Entity(name = "tb_venda")
 public class Venda {
-
+	
+	protected Venda(){
+	}
+	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@OneToMany

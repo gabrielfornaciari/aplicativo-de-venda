@@ -4,15 +4,17 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "tb_produto")
+@Entity(name = "tb_produto")
 public class Produto {
 
+	protected Produto() {
+	}
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String nome;
