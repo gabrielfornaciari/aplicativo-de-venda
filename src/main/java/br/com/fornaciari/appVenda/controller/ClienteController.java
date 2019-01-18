@@ -1,6 +1,7 @@
 package br.com.fornaciari.appVenda.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,8 @@ public class ClienteController {
 	
 	@GetMapping(path = "/buscaCliente/{id}", produces = "application/json")
 	public @ResponseBody Cliente getCliente(Integer id) {
-		return clienteRepository.findOne(id);
+		Optional<Cliente> cliente = clienteRepository.findById(id);
+		return cliente.get();
 	}
 	
 	@PostMapping()
