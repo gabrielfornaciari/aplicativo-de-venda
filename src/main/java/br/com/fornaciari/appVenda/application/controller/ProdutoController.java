@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fornaciari.appVenda.application.model.Produto;
-import br.com.fornaciari.appVenda.application.repository.ProdutoRepository;
 import br.com.fornaciari.appVenda.application.resources.ProdutoResources;
 
 @RestController
@@ -21,30 +20,25 @@ import br.com.fornaciari.appVenda.application.resources.ProdutoResources;
 public class ProdutoController {
 	
 	@Autowired
-	private ProdutoRepository produtoRepository;
-	
-	@Autowired
 	private ProdutoResources produtoResources;
 	
 	@GetMapping(produces = "application/json")
-	public @ResponseBody List<Produto> buscaProdutos() {
-		return produtoRepository.findAll();
+	public @ResponseBody List<Produto> getProdutos() {
+		return produtoResources.retornaProdutos();
 	}
 	
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public @ResponseBody Produto getProduto(@PathVariable Integer id) {
-		return produtoResources.returnProduto(id);
+		return produtoResources.retornaProduto(id);
 	}
 	
 	@PostMapping(consumes = "application/json")
-	public Produto salvaProduto(@RequestBody Produto produto) {
-		return produtoRepository.save(produto);
+	public Produto addAndEdit(@RequestBody Produto produto) {
+		return produtoResources.salvarOuEditarProduto(produto);
 	}
 	
 	@DeleteMapping("/{id}")
-	public Produto apagaProduto(@PathVariable Integer id) {
-		Produto produto = produtoResources.returnProduto(id);
-		produtoRepository.delete(produto);
-		return produto;
+	public Produto delete(@PathVariable Integer id) {
+		return produtoResources.apagarProduto(id);
 	}
 }

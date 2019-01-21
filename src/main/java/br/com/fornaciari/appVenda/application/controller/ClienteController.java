@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fornaciari.appVenda.application.model.Cliente;
-import br.com.fornaciari.appVenda.application.repository.ClienteRepository;
 import br.com.fornaciari.appVenda.application.resources.ClienteResources;
 
 @RestController
@@ -21,30 +20,25 @@ import br.com.fornaciari.appVenda.application.resources.ClienteResources;
 public class ClienteController {
 	
 	@Autowired
-	private ClienteRepository clienteRepository;
-	
-	@Autowired
 	private ClienteResources clienteResources;
 	
 	@GetMapping(produces = "application/json")
-	public @ResponseBody List<Cliente> buscaClientes() {
-		return clienteRepository.findAll();
+	public @ResponseBody List<Cliente> getClientes() {
+		return clienteResources.retornaClientes();
 	}
 	
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public @ResponseBody Cliente getCliente(@PathVariable Integer id) {
-		return clienteResources.returnCliente(id);
+		return clienteResources.retornaCliente(id);
 	}
 	
 	@PostMapping(consumes = "application/json")
-	public Cliente salvaCliente(@RequestBody Cliente cliente) {
-		return clienteRepository.save(cliente);
+	public Cliente addAndEdit(@RequestBody Cliente cliente) {
+		return clienteResources.salvarOuEditarCliente(cliente);
 	}
 	
 	@DeleteMapping("/{id}")
-	public Cliente apagaCliente(@PathVariable Integer id) {
-		Cliente cliente = clienteResources.returnCliente(id);
-		clienteRepository.delete(cliente);
-		return cliente;
+	public Cliente delete(@PathVariable Integer id) {
+		return clienteResources.apagarCliente(id);
 	}
 }

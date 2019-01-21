@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fornaciari.appVenda.application.model.Compra;
-import br.com.fornaciari.appVenda.application.repository.CompraRepository;
 import br.com.fornaciari.appVenda.application.resources.CompraResources;
 
 @RestController
@@ -21,30 +20,25 @@ import br.com.fornaciari.appVenda.application.resources.CompraResources;
 public class CompraController {
 	
 	@Autowired
-	private CompraRepository compraRepository;
-	
-	@Autowired
 	private CompraResources compraResources;
 	
 	@GetMapping(produces = "application/json")
-	public @ResponseBody List<Compra> buscaCompras() {
-		return compraRepository.findAll();
+	public @ResponseBody List<Compra> getCompras() {
+		return compraResources.retornaCompras();
 	}
 	
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public @ResponseBody Compra getCompra(@PathVariable Integer id) {
-		return compraResources.returnCompra(id);
+		return compraResources.retornaCompra(id);
 	}
 	
 	@PostMapping(consumes = "application/json")
-	public Compra salvaCompra(@RequestBody Compra compra) {
-		return compraRepository.save(compra);
+	public Compra addAndEdit(@RequestBody Compra compra) {
+		return compraResources.salvarOuEditarCompra(compra);
 	}
 	
 	@DeleteMapping("/{id}")
-	public Compra apagaCompra(@PathVariable Integer id) {
-		Compra compra = compraResources.returnCompra(id);
-		compraRepository.delete(compra);
-		return compra;
+	public Compra delete(@PathVariable Integer id) {
+		return compraResources.apagarCompra(id);
 	}
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fornaciari.appVenda.application.model.Venda;
-import br.com.fornaciari.appVenda.application.repository.VendaRepository;
 import br.com.fornaciari.appVenda.application.resources.VendaResources;
 
 @RestController
@@ -21,30 +20,25 @@ import br.com.fornaciari.appVenda.application.resources.VendaResources;
 public class VendaController {
 	
 	@Autowired
-	private VendaRepository vendaRepository;
-	
-	@Autowired
 	private VendaResources vendaResources;
 	
 	@GetMapping(produces = "application/json")
-	public @ResponseBody List<Venda> buscaVendas() {
-		return vendaRepository.findAll();
+	public @ResponseBody List<Venda> getVendas() {
+		return vendaResources.retornaVendas();
 	}
 	
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public @ResponseBody Venda getVenda(@PathVariable Integer id) {
-		return vendaResources.returnVenda(id);
+		return vendaResources.retornaVenda(id);
 	}
 	
 	@PostMapping(consumes = "application/json")
-	public Venda salvaVenda(@RequestBody Venda venda) {
-		return vendaRepository.save(venda);
+	public Venda addAndEdit(@RequestBody Venda venda) {
+		return vendaResources.salvarOuEditarVenda(venda);
 	}
 	
 	@DeleteMapping("/{id}")
-	public Venda apagaVenda(@PathVariable Integer id) {
-		Venda venda = vendaResources.returnVenda(id);
-		vendaRepository.delete(venda);
-		return venda;
+	public Venda delete(@PathVariable Integer id) {
+		return vendaResources.apagarVenda(id);
 	}
 }
