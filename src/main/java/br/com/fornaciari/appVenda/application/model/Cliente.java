@@ -1,4 +1,4 @@
-package br.com.fornaciari.appVenda.model;
+package br.com.fornaciari.appVenda.application.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
