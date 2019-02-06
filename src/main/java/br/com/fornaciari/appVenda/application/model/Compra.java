@@ -29,6 +29,9 @@ public class Compra {
 	private Integer quantidade;
 	
 	private String local;
+	
+	@ManyToOne
+	private Usuario usuario;
 
 	public Integer getId() {
 		return id;
@@ -78,6 +81,14 @@ public class Compra {
 		this.local = local;
 	}
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public BigDecimal getValorUnitario(){
 		BigDecimal valorUnitario = BigDecimal.ZERO;
 		if (valorCompra != null && quantidade != null) {

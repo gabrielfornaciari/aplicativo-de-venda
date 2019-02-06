@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "tb_cliente")
 public class Cliente{
@@ -24,6 +25,9 @@ public class Cliente{
 	private String telefone;
 	
 	private String facebook;
+	
+	@ManyToOne
+	private Usuario usuario;
 
 	public Integer getId() {
 		return id;
@@ -71,6 +75,14 @@ public class Cliente{
 
 	public void setFacebook(String facebook) {
 		this.facebook = facebook;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

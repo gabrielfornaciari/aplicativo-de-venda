@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "tb_produto")
 public class Produto {
@@ -22,6 +23,9 @@ public class Produto {
 	private BigDecimal valorVenda;
 	
 	private String descricao;
+
+	@ManyToOne
+	private Usuario usuario;
 
 	public Integer getId() {
 		return id;
@@ -53,6 +57,14 @@ public class Produto {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

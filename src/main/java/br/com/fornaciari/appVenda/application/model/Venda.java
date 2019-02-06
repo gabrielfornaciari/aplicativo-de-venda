@@ -33,6 +33,9 @@ public class Venda {
 	
 	private String tipoPagamento;
 
+	@ManyToOne
+	private Usuario usuario;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -81,6 +84,14 @@ public class Venda {
 		this.tipoPagamento = tipoPagamento;
 	}
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public BigDecimal getTotal() {
 		BigDecimal total = BigDecimal.ZERO;
 		for (Produto produto : produtos) {
